@@ -26,25 +26,25 @@
 /***********************************************
  *          Animation Parameters               * 
  ***********************************************/
-#define EVAL_KIT_DIRECT_TOGGLE_DELAY            4500        // ms - time for each toggle step (on/off)
+#define EVAL_KIT_DIRECT_TOGGLE_DELAY                4500        // ms - time for each toggle step (on/off)
 
 // 15 Segment Displays
-#define EVAL_KIT_15SEG_COUNT_DELAY              3000        // ms - time each number is ON
+#define EVAL_KIT_15SEG_COUNT_DELAY                  3000        // ms - time each number is ON
 
 // Single Segment Display
-#define EVAL_KIT_SINGLE_ON_TIME                 10000       // ms - time the display is ON
-#define EVAL_KIT_SINGLE_OFF_TIME                500         // ms - time the display is ON
+#define EVAL_KIT_SINGLE_ON_TIME                     10000       // ms - time the display is ON
+#define EVAL_KIT_SINGLE_OFF_TIME                    500         // ms - time the display is ON
 
 // 7 Segment Display
-#define EVAL_KIT_7SEG_DOT_COUNT_DELAY           2000        // ms - time each number is ON
+#define EVAL_KIT_7SEG_DOT_COUNT_DELAY               2000        // ms - time each number is ON
 
 // 7 Bar Display
-#define EVAL_KIT_7BAR_COUNT_DELAY               1000        // ms - time each bar takes to turn ON
+#define EVAL_KIT_7BAR_COUNT_DELAY                   1000        // ms - time each bar takes to turn ON
 
 // 3 Bar Display
-#define EVAL_KIT_3BAR_COUNT_DELAY               500        // ms - time each bar takes to turn ON
-#define EVAL_KIT_3BAR_BLINK_TIME                500         // ms - time for each blink step (on/off).
-#define EVAL_KIT_3BAR_BLINK_NUM                 3           // number of blinks for each bar
+#define EVAL_KIT_3BAR_COUNT_DELAY                   500         // ms - time each bar takes to turn ON
+#define EVAL_KIT_3BAR_BLINK_TIME                    500         // ms - time for each blink step (on/off).
+#define EVAL_KIT_3BAR_BLINK_NUM                     3           // number of blinks for each bar
 
 enum evaluationKitAnimations_e{
     EVAL_ANIMATION_DIRECT_TOGGLE = 0,

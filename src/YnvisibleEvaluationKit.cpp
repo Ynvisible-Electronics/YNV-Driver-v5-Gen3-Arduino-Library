@@ -11,9 +11,9 @@ int evalKit7BarsPinList[EVAL_KIT_7BARS_NUM_SEGMENTS] = EVAL_KIT_7BARS_PIN_LIST;
 static YNV_ECD * p_currentDisplay;
 bool YNV_ECD::m_stopDrivingFlag = false;
 
-YNV_ECD ecdEvalKitSingle(EVAL_KIT_SINGLE_NUM_SEGMENTS, &evalKitSinglePinList);                   // Object for a Single Segment Electrochromic Display
-YNV_ECD ecdEvalKit7SegDot(EVAL_KIT_7SEG_DOT_NUM_SEGMENTS, evalKit7SegDotPinList);                         // Object for a 7-Segment Electrochromic Display
-YNV_ECD ecdEvalKit15SegNeg(EVAL_KIT_15SEG_NEGATIVE_NUM_SEGMENTS, evalKit15SegNegPinList);      // Object for a Double 7-Segment with Minus sign Electrochromic Display
+YNV_ECD ecdEvalKitSingle(EVAL_KIT_SINGLE_NUM_SEGMENTS, &evalKitSinglePinList);                  // Object for a Single Segment Electrochromic Display
+YNV_ECD ecdEvalKit7SegDot(EVAL_KIT_7SEG_DOT_NUM_SEGMENTS, evalKit7SegDotPinList);               // Object for a 7-Segment Electrochromic Display
+YNV_ECD ecdEvalKit15SegNeg(EVAL_KIT_15SEG_NEGATIVE_NUM_SEGMENTS, evalKit15SegNegPinList);       // Object for a Double 7-Segment with Minus sign Electrochromic Display
 YNV_ECD ecdEvalKit15SegDot(EVAL_KIT_15SEG_DOT_NUM_SEGMENTS, evalKit15SegDotPinList);            // Object for a Double 7-Segment with a decimal Dot Electrochromic Display
 YNV_ECD ecdEvalKit3Bars(EVAL_KIT_3BARS_NUM_SEGMENTS, evalKit3BarsPinList);                      // Object for a 3 Bars (Segments) Electrochromic Display -> Bottom to Top
 YNV_ECD ecdEvalKit7Bars(EVAL_KIT_7BARS_NUM_SEGMENTS, evalKit7BarsPinList);                      // Object for a 7 Bars (Segments) Electrochromic Display -> Bottom to Top
@@ -39,43 +39,43 @@ const bool mask7SegDotsDisplay [EVAL_KIT_7SEG_DOT_MASK_NUM_OF_ANIMATIONS][EVAL_K
 void evaluationKitInit(void){
     // Configuration for 3 Bars Display
     ECD_Config evalKit3BarsConfig;
-    evalKit3BarsConfig.coloringTime                 = 1200;
+    evalKit3BarsConfig.coloringTime                 = 900;
     evalKit3BarsConfig.bleachingTime                = 900;
 
     evalKit3BarsConfig.refreshColoringVoltage       = 1.3;
-    evalKit3BarsConfig.refreshColorPulseTime        = 300;
+    evalKit3BarsConfig.refreshColorPulseTime        = 200;
 
-    evalKit3BarsConfig.refreshBleachingVoltage      = 0.8;
+    evalKit3BarsConfig.refreshBleachingVoltage      = 0.6;
     evalKit3BarsConfig.refreshBleachPulseTime       = 100;
     ecdEvalKit3Bars.setConfig(evalKit3BarsConfig);
  
     // Configuration for Single Segment Kit
     ECD_Config evalKitSingleConfig;
     evalKitSingleConfig.coloringTime                = 450;
-    evalKitSingleConfig.bleachingTime               = 250;
+    evalKitSingleConfig.bleachingTime               = 350;
 
     evalKitSingleConfig.refreshColoringVoltage      = 1.3;
-    evalKitSingleConfig.refreshColorPulseTime       = 300;
-    evalKitSingleConfig.refreshBleachingVoltage     = 0.9;
-    evalKitSingleConfig.refreshBleachPulseTime      = 75;
+    evalKitSingleConfig.refreshColorPulseTime       = 100;
+    evalKitSingleConfig.refreshBleachingVoltage     = 0.6;
+    evalKitSingleConfig.refreshBleachPulseTime      = 100;
 
-    evalKitSingleConfig.refreshBleachLimitLVoltage  = 0.44;
+    evalKitSingleConfig.refreshBleachLimitLVoltage  = 0.4;
     
     ecdEvalKitSingle.setConfig(evalKitSingleConfig);
 
     // Configuration for 15 Segment Displays
     ECD_Config evalKit15SegConfig;
     evalKit15SegConfig.refreshColoringVoltage       = 1.3;
-    evalKit15SegConfig.refreshColorLimitHVoltage    = 1.0;
-    evalKit15SegConfig.refreshBleachPulseTime       = 75;
-    evalKit15SegConfig.refreshBleachLimitLVoltage   = 0.3;     // Bleach Limit Low [V]
+    evalKit15SegConfig.refreshColorLimitHVoltage    = 1.1;
+    evalKit15SegConfig.refreshBleachPulseTime       = 50;
+    evalKit15SegConfig.refreshBleachLimitLVoltage   = 0.4;     // Bleach Limit Low [V]
     ecdEvalKit15SegNeg.setConfig(evalKit15SegConfig);
     ecdEvalKit15SegDot.setConfig(evalKit15SegConfig);
 
     // Configuration for 7 Bars Display
     ECD_Config evalKit7BarsConfig;
     evalKit7BarsConfig.refreshBleachLimitLVoltage   = 0.4;
-    evalKit7BarsConfig.bleachingTime                = 700;
+    evalKit7BarsConfig.bleachingTime                = 500;
     ecdEvalKit7Bars.setConfig(evalKit7BarsConfig);
 }
 
@@ -239,6 +239,7 @@ void displaySingleSet(bool state){
 /**
  * @brief Displays a number on a 7-segment display.
  * @param number The number to be displayed.
+ * @param dot 
  */
 void display7SegDotRun(unsigned int number, bool dot){
     uint8_t mask_iterator = 0;
