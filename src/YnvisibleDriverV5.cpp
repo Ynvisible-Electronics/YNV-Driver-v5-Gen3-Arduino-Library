@@ -1,14 +1,39 @@
+
 /**
- * Driver v5 specific code for normal operation
- * Created by @BFFonseca - Ynvisible, May 2025
+ * @file YnvisibleDriverV5.cpp
+ * @brief LED control and animation utilities for the Ynvisible Driver v5 board.
+ *
+ * This file implements all green LED behaviour used by the Driver v5 hardware,
+ * including boot-up animations, sequential ON/OFF effects, and animation table
+ * playback. These LEDs are used strictly for visual feedback and are not part
+ * of the electrochromic driving engine.
+ *
+ * Responsibilities:
+ *  - Configure and control the 7 green LEDs on the Driver v5 board.
+ *  - Provide simple ON/OFF helper functions with timing.
+ *  - Execute predefined LED animation sequences defined in the lookup table.
+ *  - Support visual indicators during boot and during normal operation.
+ *
+ * Notes:
+ *  - LEDs are active LOW: LOW = ON, HIGH = OFF.
+ *  - This module depends on hardware pin definitions from YnvisibleDriverV5.h.
+ *  - This file is independent from ECD driving logic, which is implemented in
+ *    YnvisibleECD.cpp.
+ *
+ * Created by @BFFonseca - Ynvisible (May 2025)
+ * Updated by JoCFMendes - Ynvisible (Jan 2026)
  */
+
 
 #include <Arduino.h>
 #include "YnvisibleECD.h"
 #include "YnvisibleDriverV5.h"
 
+
 const unsigned int greenLEDsPinList[7] = {LED_1, LED_2, LED_3, LED_4, LED_5, LED_6, LED_7};
 
+
+/***************************************************************************/
 /**
  * Green LED Animations Table
  * boolean matrix indicating the LEDs state for each Display animation.
@@ -16,6 +41,8 @@ const unsigned int greenLEDsPinList[7] = {LED_1, LED_2, LED_3, LED_4, LED_5, LED
  * LOW  (0) - LED ON
  * HIGH (1) - LED OFF
  */
+/***************************************************************************/
+
 const bool greenLEDsAnimationTable[28][7] = {
   {0, 1, 1, 1, 1, 1, 1}, // Animation 1
   {1, 0, 1, 1, 1, 1, 1}, // Animation 2
@@ -47,12 +74,17 @@ const bool greenLEDsAnimationTable[28][7] = {
   {0, 0, 0, 0, 0, 0, 0}  // Animation 28
 };
 
+
+/***************************************************************************/
 /**
  * @brief Turn ON all Green LEDs (L1 - L7)
  * 
  * @param t_delay ms - delay between each LED turning ON
  */
-void greenLEDsAllOn(unsigned int t_delay){
+/***************************************************************************/
+
+void greenLEDsAllOn(unsigned int t_delay) {
+
   digitalWrite(LED_1, LOW);
   delay(t_delay);
   digitalWrite(LED_2, LOW);
@@ -67,15 +99,20 @@ void greenLEDsAllOn(unsigned int t_delay){
   delay(t_delay);
   digitalWrite(LED_7, LOW);
   delay(t_delay);
+
 }
 
 
+/***************************************************************************/
 /**
  * @brief Turn OFF all Green LEDs (L1 - L7)
  * 
  * @param t_delay ms - delay between each LED turning OFF
  */
-void greenLEDsAllOff(unsigned int t_delay){
+/***************************************************************************/
+
+void greenLEDsAllOff(unsigned int t_delay) {
+
   digitalWrite(LED_7, HIGH);
   delay(t_delay);
   digitalWrite(LED_6, HIGH);
@@ -90,33 +127,49 @@ void greenLEDsAllOff(unsigned int t_delay){
   delay(t_delay);
   digitalWrite(LED_1, HIGH);
   delay(t_delay);
+
 }
 
+
+/***************************************************************************/
 /**
  * @brief Initialize the Green LEDs
  * 
  * Initialize the LEDs PINs and do an 
  * ON/OFF sequence with a specific delay 
  */
-void greenLEDsInit(void){
-  // --------------- Green LEDs Pin Setup ---------------
+/***************************************************************************/
+
+void greenLEDsInit(void) {
+
   for(int i = 0; i < 7; i++){
     pinMode(greenLEDsPinList[i], OUTPUT);
     digitalWrite(greenLEDsPinList[i], HIGH);
   }
 
   greenLEDsAllOn(DRIVER_BOOT_UP_SEQUENCE_DELAY/3);    // Turn all On
-  delay(DRIVER_BOOT_UP_SEQUENCE_DELAY * 2);        // Wait a bit
-  greenLEDsAllOff(DRIVER_BOOT_UP_SEQUENCE_DELAY);   // Turn all Off
+  delay(DRIVER_BOOT_UP_SEQUENCE_DELAY * 2);           // Wait
+  greenLEDsAllOff(DRIVER_BOOT_UP_SEQUENCE_DELAY);     // Turn all Off
+
 }
 
+
+/***************************************************************************/
 /**
  * @brief Set the states of each LED based on the animation table
  * 
  * @param t_selectedAnimation Number of the currently active animation
  */
+/***************************************************************************/
+
 void updateAnimationLEDs(unsigned int t_selectedAnimation) {
+
   for (int i = 0; i < 7; i++) {
     digitalWrite(greenLEDsPinList[i], greenLEDsAnimationTable[t_selectedAnimation][i]);  // Turn ON with LOW, OFF with HIGH
   }
+
 }
+
+/***************************************************************************
+ ****************************** END OF FILE ********************************
+ ***************************************************************************/

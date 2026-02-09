@@ -1,7 +1,6 @@
 /*
 	EvaluationKit.ino - Sketch for the Evaluation Kit running on the Driver v5 board
 	Created by @BFFonseca - Ynvisible, May 2025
-  Modifyed by JoCFMendes - Ynvisible, January 2026
 	For Driver 5.x Hardware
 */
 
@@ -14,7 +13,7 @@ unsigned int selectedAnimation = 0;
 bool animationChanged = false;
 bool runSelectedAnimation = false;
 bool pauseAnimation = false;              // Pause the current animation.
-bool cancelAnimation = false;             // abort the currently playing animation. Used by long press Start Button or by starting another animation while one is already on-going
+bool cancelAnimation = false;            // abort the currently playing animation. Used by long press Start Button or by starting another animation while one is already on-going
 
 bool directToggleState = false;
 
@@ -31,7 +30,7 @@ void setup() {
   digitalWrite(LED_G, HIGH);
 
   pinMode(LED_B, OUTPUT);
-  digitalWrite(LED_B, LOW);           // RGB Blue ON
+  digitalWrite(LED_B, LOW);     // RGB Blue ON
 
   // --------------- Control Buttons Setup ---------------
   pinMode(BTN_START, INPUT);
@@ -58,8 +57,8 @@ void loop() {
   }
 
   if(runSelectedAnimation){
-    digitalWrite(LED_B, HIGH);      // RGB Blue OFF
-    digitalWrite(LED_G, LOW);       // RGB Green ON
+    digitalWrite(LED_B, HIGH);     // RGB Blue OFF
+    digitalWrite(LED_G, LOW);     // RGB Green ON
     
     switch(selectedAnimation){
       case EVAL_ANIMATION_DIRECT_TOGGLE:
@@ -120,7 +119,7 @@ void loop() {
       break;
     }
     digitalWrite(LED_R, HIGH);
-    digitalWrite(LED_G, HIGH);          // RGB Green OFF
+    digitalWrite(LED_G, HIGH);     // RGB Green OFF
   }
   checkAndCancelCurrentAnimation();
 }
@@ -131,7 +130,7 @@ void loop() {
 void checkAndCancelCurrentAnimation(void){
   if(cancelAnimation){
       displayCancelAnimation();
-    digitalWrite(LED_B, LOW);           // RGB Blue ON
+    digitalWrite(LED_B, LOW);     // RGB Blue ON
     pauseAnimation = false;
     runSelectedAnimation = false;
     cancelAnimation = false;
@@ -189,8 +188,9 @@ void buttonStartPressedISR(void){
     }
     runSelectedAnimation = true;                       // Start/Stop the animation
   }
-  else if(runSelectedAnimation){                       // Long Press and an animation is running
+  else if(runSelectedAnimation){                                        // Long Press and an animation is running
     pauseAnimation = false;
+    // runSelectedAnimation = false;
     cancelAnimation = true;
     displayStopAnimation();
   }
@@ -210,7 +210,7 @@ void buttonUpPressedISR(void){
 
   animationChanged = true;
   if(selectedAnimation == EVAL_KIT_NUM_ANIMATIONS-1){   // As 0 doesn't count, we have have EVAL_KIT_NUM_ANIMATION equal to the actual number of animations
-    selectedAnimation = 0;                              // 1 is the first animation, 0 does not exist in the context of LEDs or displays (0 = SIGN_ANIMATION_NONE)
+    selectedAnimation = 0;                            // 1 is the first animation, 0 does not exist in the context of LEDs or displays (0 = SIGN_ANIMATION_NONE)
     return;
   }
   selectedAnimation++;
@@ -230,7 +230,7 @@ void buttonDownPressedISR(void){
   
   animationChanged = true;
   if(selectedAnimation == 0){                         // 1 is the first animation, 0 does not exist in the context of LEDs or displays (0 = SIGN_ANIMATION_NONE)
-    selectedAnimation = EVAL_KIT_NUM_ANIMATIONS-1;    // As 0 doesn't count, we have have EVAL_KIT_NUM_ANIMATION equal to the actual number of animations
+    selectedAnimation = EVAL_KIT_NUM_ANIMATIONS-1;      // As 0 doesn't count, we have have EVAL_KIT_NUM_ANIMATION equal to the actual number of animations
     return;
   }
   selectedAnimation--;
@@ -397,7 +397,6 @@ void animation7SegDotCountUp(void){
     display7SegDotRun(i, true);
     delayAfterDisplayRun(EVAL_KIT_7SEG_DOT_COUNT_DELAY);
   }
-  display7SegDotRun(EVAL_KIT_7SEG_DOT_MASK_NUM_OF_ANIMATIONS, false);
 }
 
 /**
@@ -412,7 +411,6 @@ void animation7SegDotCountDown(void){
     display7SegDotRun(i, true);
     delayAfterDisplayRun(EVAL_KIT_7SEG_DOT_COUNT_DELAY);
   }
-  display7SegDotRun(EVAL_KIT_7SEG_DOT_MASK_NUM_OF_ANIMATIONS, false);
 }
 
 /******************************* 7 Bars Display *******************************/

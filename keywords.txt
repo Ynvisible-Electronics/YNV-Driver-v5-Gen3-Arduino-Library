@@ -1,28 +1,48 @@
-YNV_ECD KEYWORD1
-begin  KEYWORD2
-setSegmentState KEYWORD2
-executeDisplay  KEYWORD2
-refreshDisplay  KEYWORD2
-updateSupplyVoltage KEYWORD2
-setStopDrivingFlag  KEYWORD2
-clearStopDriving  KEYWORD2
-setAllSegmentsBleach  KEYWORD2
-setConfig KEYWORD2
-ECD_Config  KEYWORD3
+###########################################
+# Classes
+###########################################
+YNV_ECD                     KEYWORD1
+YNV_SIGNAGE_I2C_MESSAGE     KEYWORD1
 
-evaluationKitInit KEYWORD2
-displayStopAnimation  KEYWORD2
-displayCancelAnimation  KEYWORD2
-display15SegNegInit KEYWORD2
-display15SegNegRun  KEYWORD2
-display15SegDotInit KEYWORD2
-display15SegDotRun  KEYWORD2
-displaySingleSet  KEYWORD2
-display7SegDotRun KEYWORD2
-display7BarsSet KEYWORD2
-display7BarsClear KEYWORD2
-display3BarsSet KEYWORD2
-display3BarsClear KEYWORD2
-displayDirectSetAll KEYWORD2
-EK_15Seg_Struct_t KEYWORD3
-EK_15Seg_Values_t KEYWORD3
+
+###########################################
+# Public Methods (ECD)
+###########################################
+begin                       KEYWORD2
+clearStopDriving            KEYWORD2
+disableCounterElectrode     KEYWORD2
+enableCounterElectrode      KEYWORD2
+executeDisplay              KEYWORD2
+execute_refresh             KEYWORD2
+setAllSegmentsBleach        KEYWORD2
+setConfig                   KEYWORD2
+setSegmentState             KEYWORD2
+setStopDrivingFlag          KEYWORD2
+updateSupplyVoltage         KEYWORD2
+
+
+###########################################
+# Evaluation Kit API
+###########################################
+evaluationKitInit           KEYWORD2
+display7BarsClear           KEYWORD2
+display7BarsSet             KEYWORD2
+display3BarsClear           KEYWORD2
+display3BarsSet             KEYWORD2
+display7SegDotRun           KEYWORD2
+displaySingleSet            KEYWORD2
+displayStopAnimation        KEYWORD2
+displayCancelAnimation      KEYWORD2
+display15SegNegInit         KEYWORD2
+display15SegNegRun          KEYWORD2
+display15SegDotInit         KEYWORD2
+display15SegDotRun          KEYWORD2
+displayDirectSetAll         KEYWORD2
+
+
+###########################################
+# Structs / Types
+###########################################
+ECD_Config                  KEYWORD3
+EK_15Seg_Struct_t           KEYWORD3
+EK_15Seg_Values_t           KEYWORD3
